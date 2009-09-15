@@ -369,13 +369,13 @@ class Lingr
                     end
                     @lingr.events.add('status_changed',ary2) if ary2.length > 0
                 end
-                @lingr.observe_thread = Thread.new{ @lingr.room.observe }
-                @lingr.observe_thread.join
+                lingr.observe_thread = Thread.new{ lingr.room.observe }
+                lingr.observe_thread.join
             },
                 "failure" => lambda{|json,lingr|
-                @lingr.events.add('observe_failure', json)
-                @lingr.c_error += 1
-                Thread.new{ sleep 2**@lingr.c_error; @lingr.observe }.join
+                lingr.events.add('observe_failure', json)
+                lingr.c_error += 1
+                Thread.new{ sleep 2**lingr.c_error; lingr.room.observe }.join if lingr.booted
             }
             })
 
