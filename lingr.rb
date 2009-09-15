@@ -258,7 +258,9 @@ class Lingr
                         :public => n["room"]["public"],
                         :name => n["room"]["name"],
                         :id => n["room"]["id"],
-                        :description => n["room"]["blurb"]
+                        :description => n["room"]["blurb"],
+                        :members => members,
+                        :messages => messages
                     )
                 end
                 lingr.events.add('room_show_complete',json)
