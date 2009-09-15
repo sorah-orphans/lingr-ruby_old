@@ -250,7 +250,7 @@ class Lingr
                             messages << Message.new(
                                 :timestamp => Time.parse(m["timestamp"]),
                                 :text => m["text"],
-                                :user => mem.index(m["speaker_id"])
+                                :user => members[mem.index(m["speaker_id"])]
                             )
                         end
                     end
@@ -502,6 +502,7 @@ class Lingr
             @text = hash[:text] || nil
             @presence = hash[:presence]
             @presence = true if @presence.nil?
+            @room = hash[:room] || nil
             if hash[:user].nil?
                 @user = Member.new(
                     :nickname => hash[:nickname],
@@ -513,7 +514,7 @@ class Lingr
                 @user = hash[:user]
             end
         end
-        attr_reader :timestamp,:text,:user
+        attr_reader :timestamp,:text,:user,:room
     end
 
     class Member
